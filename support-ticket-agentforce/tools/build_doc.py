@@ -357,8 +357,27 @@ def build() -> Document:
     doc.add_paragraph(
         "Only the High priority ticket produced a task, which is the specified "
         "behaviour. Medium and Low tickets are classified and queued without paging an "
-        "agent."
+        "agent. The flow also writes the predicted priority back to the ticket record and "
+        "flags SLA breach risk for anything raised more than two days ago."
     )
+
+    doc.add_heading("End-to-end test through the agent", level=2)
+    doc.add_paragraph(
+        "The flow was also exercised through the agent conversation, which is the real "
+        "test of the system: the agent must pick the right subagent, call the flow with "
+        "the user's input, and report the result back in plain language."
+    )
+    doc.add_paragraph(
+        "Asking \"What is the priority of the support ticket for Acme Corporation?\" "
+        "produced: Subagent Selected — Support Ticket Priority Analysis, then Action "
+        "Launched — Support Ticket Intelligence (0.63 sec) with input "
+        "{\"varAccountName\": \"Acme Corporation\"} and output returning "
+        "varPriorityLevel \"High\"."
+    )
+    add_shot(doc, "23_agent_test_high.png",
+             "Agent conversation: the High branch, showing subagent and action selection.")
+    add_shot(doc, "24_agent_test_low.png",
+             "Agent conversation: the Low branch for Initech Solutions.")
 
     doc.add_heading("Expected outcome", level=2)
     for item in [
