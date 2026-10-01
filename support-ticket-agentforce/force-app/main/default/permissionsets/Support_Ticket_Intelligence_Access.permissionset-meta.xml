@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Support Ticket Intelligence Access</label>
+    <description>Grants object and field-level access to the Support Ticket Intelligence object. Custom fields deployed via Metadata API are hidden from all profiles unless explicitly granted.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+
+    <objectPermissions>
+        <object>Support_Ticket_Intelligence__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Ticket_Number__c</field>
+        <editable>false</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Customer__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Contact__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Issue_Type__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Description__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Priority_Level__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Status__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Created_Date__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Assigned_To__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.SLA_Breach_Risk__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Support_Ticket_Intelligence__c.Resolution_Time__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+</PermissionSet>

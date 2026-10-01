@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Breach_Risk__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flagged by the flow when the ticket is older than the SLA threshold.</description>
+    <label>SLA Breach Risk</label>
+    <type>Checkbox</type>
+</CustomField>

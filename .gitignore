@@ -1,0 +1,23 @@
+# Unrelated local project — not part of this submission
+HelloWorldLightningWebComponent/
+HelloWorldLightningWebComponent.backup-*.tar.gz
+
+# Course sample material (not our work)
+WhatNext Vision Motors.docx
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+
+# Salesforce CLI local state
+.sf/
+.sfdx/
+.localdevserver/
+**/node_modules/
+
+# Exploration scratch — retrieved metadata used for reference, not part of the build
+support-ticket-agentforce/agentref/
+support-ticket-agentforce/retrieved/
+support-ticket-agentforce/cmp/

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Customer contact who reported the issue.</description>
+    <externalId>false</externalId>
+    <label>Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Support Ticket Intelligence</relationshipLabel>
+    <relationshipName>Support_Ticket_Intelligence_Contact</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>
