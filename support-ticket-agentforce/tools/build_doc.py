@@ -213,6 +213,9 @@ def build() -> Document:
             cells[i].text = v
 
     doc.add_paragraph()
+    add_shot(doc, "14_ticket_list_all.png",
+             "All Tickets list view. TKT-0001 shows Priority High with SLA Breach Risk "
+             "ticked; the newer tickets sit at Medium and Low.")
     add_shot(doc, "12_ticket_record.png",
              "A ticket record. The two Urgent Ticket Handling tasks in the Activity "
              "panel were created by the flow, not by hand.")
