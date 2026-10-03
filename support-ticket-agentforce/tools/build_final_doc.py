@@ -40,15 +40,28 @@ def nums(doc, items):
         doc.add_paragraph(i, style="List Number")
 
 
-def table(doc, headers, rows, style="Light Grid Accent 1"):
+def table(doc, headers, rows, style="Light Grid Accent 1", font_size=None):
     t = doc.add_table(rows=1, cols=len(headers))
     t.style = style
     for i, x in enumerate(headers):
-        t.rows[0].cells[i].text = x
+        cell = t.rows[0].cells[i]
+        cell.text = x
+        if font_size is not None:
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.size = font_size
+                    r.font.bold = True
     for row in rows:
         cells = t.add_row().cells
+        is_total = (str(row[0]).lower() in ["total", ""] and "total" in str(row[1]).lower())
         for i, v in enumerate(row):
             cells[i].text = str(v)
+            if font_size is not None:
+                for p in cells[i].paragraphs:
+                    for r in p.runs:
+                        r.font.size = font_size
+                        if is_total:
+                            r.font.bold = True
     doc.add_paragraph()
     return t
 
@@ -73,7 +86,87 @@ def shot(doc, name, caption, width=6.2):
 def build():
     doc = Document()
 
-    # ---- Title + user story -------------------------------------------------
+    # ---- FIRST PAGE: COVER & TEAM DETAILS -----------------------------------
+    p_title = doc.add_paragraph()
+    p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_title = p_title.add_run(TITLE.upper())
+    r_title.bold = True
+    r_title.font.size = Pt(17)
+    r_title.font.color.rgb = RGBColor(0x00, 0x33, 0x66)
+    p_title.paragraph_format.space_before = Pt(8)
+    p_title.paragraph_format.space_after = Pt(4)
+
+    p_sub = doc.add_paragraph()
+    p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_sub = p_sub.add_run("Salesforce-Based Support Ticket Intelligence and Conversational AI Automation")
+    r_sub.italic = True
+    r_sub.font.size = Pt(11.5)
+    r_sub.font.color.rgb = RGBColor(0x55, 0x55, 0x55)
+    p_sub.paragraph_format.space_after = Pt(3)
+
+    p_lbl = doc.add_paragraph()
+    p_lbl.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_lbl = p_lbl.add_run("PROJECT DOCUMENTATION")
+    r_lbl.bold = True
+    r_lbl.font.size = Pt(11)
+    p_lbl.paragraph_format.space_after = Pt(2)
+
+    p_note = doc.add_paragraph()
+    p_note.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_note = p_note.add_run(
+        "Detailed implementation, configuration, flow automation, Agentforce integration, "
+        "testing, and team work distribution report."
+    )
+    r_note.font.size = Pt(9.5)
+    r_note.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+    p_note.paragraph_format.space_after = Pt(12)
+
+    # College
+    p_col = doc.add_paragraph()
+    p_col.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_col_lbl = p_col.add_run("COLLEGE: ")
+    r_col_lbl.bold = True
+    r_col_lbl.font.size = Pt(12)
+    r_col_name = p_col.add_run("GOVERNMENT COLLEGE OF ENGINEERING, ERODE")
+    r_col_name.bold = True
+    r_col_name.font.size = Pt(12)
+    r_col_name.font.color.rgb = RGBColor(0x00, 0x33, 0x66)
+    p_col.paragraph_format.space_after = Pt(12)
+
+    # Team Members Block
+    p_team = doc.add_paragraph()
+    p_team.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    r_tl = p_team.add_run("TEAM LEADER: ")
+    r_tl.bold = True
+    r_tl.font.size = Pt(11)
+    r_tln = p_team.add_run("PREMKUMAR P\n")
+    r_tln.font.size = Pt(11)
+
+    r_tm = p_team.add_run("TEAM MEMBERS:\n")
+    r_tm.bold = True
+    r_tm.font.size = Pt(11)
+    for m in ["BHARATH KUMAR P", "VIKASH V", "PUGAZHENDHI P", "ASWIN M"]:
+        p_team.add_run(f"\t\t\t\t• {m}\n")
+    p_team.paragraph_format.space_after = Pt(10)
+
+    # Team Work Distribution Summary Table
+    p_summary_title = doc.add_paragraph("TEAM WORK DISTRIBUTION SUMMARY:")
+    p_summary_title.runs[0].bold = True
+    p_summary_title.runs[0].font.size = Pt(10.5)
+    p_summary_title.paragraph_format.space_after = Pt(4)
+
+    table(doc, ["S.No.", "Team Member", "Project Role", "Key Modules / User Stories", "Story Points"], [
+        ("1", "Premkumar P (Team leader)", "AI & Backend Systems Lead", "Dev Setup, Agentforce Subagent & Action Mapping (USN-1, USN-6)", "11"),
+        ("2", "Bharath Kumar P", "Data Architect & Admin", "Custom Object & Fields, Urgent Task Automation & Assignment (USN-2, USN-7)", "10"),
+        ("3", "Vikash V", "Full-Stack Developer & QA Lead", "Relationships, UI Layouts & List Views, SLA Risk Logic (USN-3, USN-8)", "8"),
+        ("4", "Pugazhendhi P", "Flow Automation Engineer", "Auto-Launched Flow Architecture, Ticket Retrieval, Messaging (USN-4, USN-9)", "10"),
+        ("5", "Aswin M", "Business Logic & Testing Analyst", "Priority Decision Logic, Test Dataset & Functional Validation (USN-5)", "5"),
+        ("Total", "5 Members", "Full Project Lifecycle Delivery", "9 Backlog User Stories, Flow & Agentforce Testing", "44"),
+    ], font_size=Pt(9))
+
+    doc.add_page_break()
+
+    # ---- PAGE 2: USER STORY & INTRODUCTION ---------------------------------
     t = doc.add_heading(TITLE, level=0)
     t.alignment = WD_ALIGN_PARAGRAPH.CENTER
     doc.add_paragraph()
@@ -245,11 +338,48 @@ def build():
 
     # ---- 5. PLANNING --------------------------------------------------------
     h(doc, "5. Project Planning & Scheduling")
-    h(doc, "5.1 Project Planning", 2)
-    bullets(doc, ["Agile methodology", "Epics → Stories → Story Points",
-                  "Sprint-based execution", "Velocity calculation used for estimation"])
+    h(doc, "5.1 Project Planning & Work Breakdown Structure", 2)
+    bullets(doc, [
+        "Agile Scrum methodology with iterative sprint-based execution",
+        "Epics decomposed into User Stories and estimated using Story Points",
+        "Velocity tracking used for estimation and sprint capacity planning",
+        "Work Package allocation across the 5-member engineering team",
+    ])
 
-    p(doc, "Product Backlog, Sprint Schedule, and Estimation")
+    p(doc, "Work Breakdown Structure (WBS)")
+    table(doc, ["Work Package", "Tasks / Activities", "Assigned Member", "Key Deliverable / Output"], [
+        ("WP-01", "Developer Environment Configuration & SFDX Setup", "Premkumar P", "Salesforce Developer Org configured with Agentforce enabled"),
+        ("WP-02", "Custom Object & Field Schema Modeling", "Bharath Kumar P", "Support_Ticket_Intelligence__c object with 11 custom fields"),
+        ("WP-03", "Relationships, UI Layouts & Navigation", "Vikash V", "Account/Contact Lookups, Page Layout & All Tickets list view"),
+        ("WP-04", "Auto-Launched Flow Architecture & Record Retrieval", "Pugazhendhi P", "Flow skeleton with Get Records elements for Account & Ticket"),
+        ("WP-05", "Urgency Priority Decision Logic & Status Updates", "Aswin M", "Keyword decision rules (urgent/slow/etc.) & priority update back to record"),
+        ("WP-06", "Urgent Task Creation & Senior Agent Assignment", "Bharath Kumar P", "High-priority Task creation & Senior Support Agent assignment"),
+        ("WP-07", "SLA Breach Risk Calculation & Management", "Vikash V", "Decision rule for tickets > 2 days old & SLA_Breach_Risk__c flag"),
+        ("WP-08", "Agentforce Subagent Creation & Flow Action Registration", "Premkumar P", "Support Ticket Priority Analysis subagent & active Flow action"),
+        ("WP-09", "End-to-End Conversational Testing & Verification", "Pugazhendhi P & Aswin M", "Multi-branch agent testing, action messaging, and test evidence"),
+    ], font_size=Pt(9))
+
+    h(doc, "5.2 Team Work Distribution", 2)
+    p(doc, "The project implementation and deliverables were systematically distributed among all 5 students based on technical competencies and project requirements. Each team member owned dedicated modules and backlog stories:")
+    bullets(doc, [
+        "Premkumar P (Team leader) — 11 Story Points: Architected the end-to-end solution and led developer setup. Configured the Salesforce environment, activated Agentforce Default, built and configured the 'Support Ticket Priority Analysis' subagent, defined conversational instructions, and registered the Auto-Launched Flow as an Agent Action.",
+        "Bharath Kumar P — 10 Story Points: Led data architecture and task automation. Implemented the 'Support_Ticket_Intelligence__c' custom object schema and its 11 fields, configured field-level security permissions, built the automated High-priority Task creation element in Flow, and established Senior Support Agent routing.",
+        "Vikash V — 8 Story Points: Designed data relationships linking tickets to customer Accounts and Contacts, customized page layouts, created the 'All Tickets' list view for full visibility, implemented the SLA breach risk decision logic for tickets older than 2 days, and ensured metadata traceability.",
+        "Pugazhendhi P — 10 Story Points: Developed the Auto-Launched Flow architecture ('Support_Ticket_Intelligence'), constructed Get Records elements for Account identification and latest ticket retrieval, defined Flow output variables, mapped conversational action messages, and conducted conversational verification.",
+        "Aswin M — 5 Story Points: Engineered the keyword-based priority classification decision logic (High, Medium, Low branches), formulated keyword criteria ('urgent', 'not working', 'failure', 'slow', 'delay'), created multi-account sample datasets (Acme Corporation, Globex Systems, Initech Solutions), and validated priority assignment accuracy.",
+    ])
+
+    p(doc, "Team Work Distribution Summary")
+    table(doc, ["S.No.", "Team Member", "Project Role", "User Stories Handled", "Story Points"], [
+        ("1", "Premkumar P (Team leader)", "AI & Backend Systems Lead", "USN-1, USN-6", "11"),
+        ("2", "Bharath Kumar P", "Data Architect & Admin", "USN-2, USN-7", "10"),
+        ("3", "Vikash V", "Full-Stack Developer & QA Lead", "USN-3, USN-8", "8"),
+        ("4", "Pugazhendhi P", "Flow Automation Engineer", "USN-4, USN-9", "10"),
+        ("5", "Aswin M", "Business Logic & Testing Analyst", "USN-5", "5"),
+        ("Total", "5 Team Members", "Full Application Lifecycle", "9 Backlog Stories", "44"),
+    ], font_size=Pt(9))
+
+    h(doc, "5.3 Product Backlog, Sprint Schedule, and Estimation", 2)
     table(doc, ["Sprint", "Functional Requirement (Epic)", "User Story No.",
                 "User Story / Task", "Story Points", "Priority", "Team Member"], [
         ("Sprint-1", "Developer Setup", "USN-1",
@@ -289,9 +419,9 @@ def build():
          "ticket ID, priority, assigned agent, and action message so that I can understand the "
          "ticket handling outcome conversationally.",
          "5", "Medium", "Pugazhendhi P"),
-    ])
+    ], font_size=Pt(9))
 
-    p(doc, "Project Tracker, Velocity & Burndown Chart")
+    h(doc, "5.4 Project Tracker, Velocity & Burndown Chart", 2)
     table(doc, ["Sprint", "Total Story Points", "Duration", "Sprint Start Date",
                 "Sprint End Date (Planned)", "Story Points Completed"], [
         ("Sprint-1", "3", "4 Days", "14 Sep 2026", "17 Sep 2026", "3"),
@@ -300,7 +430,7 @@ def build():
         ("Sprint-4", "13", "3 Days", "28 Sep 2026", "30 Sep 2026", "13"),
         ("Sprint-5", "5", "1 Day", "01 Oct 2026", "01 Oct 2026", "5"),
         ("Sprint-6", "5", "2 Days", "02 Oct 2026", "03 Oct 2026", "5"),
-    ])
+    ], font_size=Pt(9))
     doc.add_paragraph()
 
     doc.add_page_break()

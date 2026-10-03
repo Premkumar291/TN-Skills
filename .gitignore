@@ -9,6 +9,7 @@ WhatNext Vision Motors.docx
 .DS_Store
 Thumbs.db
 *.swp
+.~lock.*
 .vscode/
 
 # Salesforce CLI local state
