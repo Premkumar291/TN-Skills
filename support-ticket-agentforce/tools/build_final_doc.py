@@ -255,51 +255,51 @@ def build():
         ("Sprint-1", "Developer Setup", "USN-1",
          "As a system administrator, I want to configure the Salesforce environment for "
          "Support Ticket Intelligence so that the support automation solution can be developed.",
-         "3", "High", "Member 1"),
+         "3", "High", "Premkumar P"),
         ("Sprint-2", "Data Modeling", "USN-2",
          "As an admin, I want to create the Support Ticket Intelligence object with required "
          "fields and relationships so that customer support ticket information is stored systematically.",
-         "5", "High", "Member 2"),
+         "5", "High", "Bharath Kumar P"),
         ("Sprint-2", "Data Modeling", "USN-3",
          "As a support user, I want support tickets to be associated with Accounts and "
          "Contacts so that the latest customer ticket can be identified for analysis.",
-         "3", "High", "Member 3"),
+         "3", "High", "Vikash V"),
         ("Sprint-3", "Automation", "USN-4",
          "As a support agent, I want an Auto-Launched Flow to retrieve the latest ticket and "
          "analyze its description so that ticket priority can be determined automatically.",
-         "5", "High", "Member 4"),
+         "5", "High", "Pugazhendhi P"),
         ("Sprint-3", "Automation", "USN-5",
          "As a support agent, I want tickets to be automatically classified as High, Medium, "
          "or Low based on configured urgency conditions so that critical issues receive attention first.",
-         "5", "High", "Member 4"),
+         "5", "High", "Aswin M"),
         ("Sprint-4", "Agentforce & Automation", "USN-6",
          "As an AI Agent (Agentforce), I want to analyze support ticket details and trigger the "
          "backend Flow so that manual ticket prioritization is reduced.",
-         "8", "High", "Member 1"),
+         "8", "High", "Premkumar P"),
         ("Sprint-4", "Task & Assignment", "USN-7",
          "As a support manager, I want High-priority tickets to automatically create an urgent "
          "handling task and assign the appropriate support level so that critical tickets are handled quickly.",
-         "5", "High", "Member 2"),
+         "5", "High", "Bharath Kumar P"),
         ("Sprint-5", "SLA Management", "USN-8",
          "As a support manager, I want the system to check SLA breach risk for older unresolved "
          "tickets so that potential SLA issues can be identified.",
-         "5", "Medium", "Member 3"),
+         "5", "Medium", "Vikash V"),
         ("Sprint-6", "Agentforce & Conversational Support", "USN-9",
          "As a support user, I want to provide an Account Name to Agentforce and receive the "
          "ticket ID, priority, assigned agent, and action message so that I can understand the "
          "ticket handling outcome conversationally.",
-         "5", "Medium", "Member 4"),
+         "5", "Medium", "Pugazhendhi P"),
     ])
 
     p(doc, "Project Tracker, Velocity & Burndown Chart")
     table(doc, ["Sprint", "Total Story Points", "Duration", "Sprint Start Date",
                 "Sprint End Date (Planned)", "Story Points Completed"], [
-        ("Sprint-1", "20", "6 Days", "TBD", "TBD", ""),
-        ("Sprint-2", "20", "6 Days", "TBD", "TBD", ""),
-        ("Sprint-3", "20", "6 Days", "TBD", "TBD", ""),
-        ("Sprint-4", "20", "6 Days", "TBD", "TBD", ""),
-        ("Sprint-5", "5", "6 Days", "TBD", "TBD", ""),
-        ("Sprint-6", "5", "6 Days", "TBD", "TBD", ""),
+        ("Sprint-1", "3", "4 Days", "14 Sep 2026", "17 Sep 2026", "3"),
+        ("Sprint-2", "8", "5 Days", "18 Sep 2026", "22 Sep 2026", "8"),
+        ("Sprint-3", "10", "5 Days", "23 Sep 2026", "27 Sep 2026", "10"),
+        ("Sprint-4", "13", "3 Days", "28 Sep 2026", "30 Sep 2026", "13"),
+        ("Sprint-5", "5", "1 Day", "01 Oct 2026", "01 Oct 2026", "5"),
+        ("Sprint-6", "5", "2 Days", "02 Oct 2026", "03 Oct 2026", "5"),
     ])
     doc.add_paragraph()
 
